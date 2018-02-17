@@ -11,22 +11,27 @@ with open('texts.csv', 'r') as f:
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+
 def dail(calls):
 	called=[]
 	area_code=[]
 	for element in calls:
 		if element[0].startswith("(080)"):
 			called.append(element[1])
-	
 	for element in (called):
 		if element[1]=="0":
 			area_code.append(element[1:4])
 		elif element[5]==" ":
 			area_code.append(element[:4])
-		elif element[:2]=="  ":
-			area_code.append("140")
 	return area_code
-print("The numbers called by people in Bangalore have codes:<{}>".format(dail(calls)))
+def sort_use(calls):
+	result=""
+	x=set(dail(calls))
+	for element in x:
+		result+=element+"\n"
+	result="The numbers called by people in Bangalore have codes:\n{}".format(result)
+	return result
+print(sort_use(calls))
 
 def percent(calls):
 	total=0
@@ -36,7 +41,7 @@ def percent(calls):
 			total+=1
 	a=float(total*100/len(list1))
 	return round(a,2)
-print("<{}> percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore."
+print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore."
 	.format(percent(calls)))
 
 """
