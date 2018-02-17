@@ -14,7 +14,6 @@ with open('calls.csv', 'r') as f:
 
 def sale_number(calls,texts):
 	dailed_number=[]
-	
 	for element in calls:
 		if element[0] not in dailed_number:
 			dailed_number.append(element[0])
@@ -27,10 +26,12 @@ def sale_number(calls,texts):
 	for element in texts:
 		if element[1] in dailed_number:
 			dailed_number.remove(element[1])
+	x=set(dailed_number)
+	x=sorted(x)
 	result=""
-	for element in dailed_number:
+	for element in x:
 		result+=element+"\n"
-	result="These numbers could be telemarketers:<\n{}>".format(result)
+	result="These numbers could be telemarketers:\n{}".format(result)
 	return result
 print(sale_number(calls,texts))
 
