@@ -25,14 +25,14 @@ def dail(calls):
 			area_code.append(element[:4])
 	return area_code
 def sort_use(calls):
+	x=sorted(dail(calls))
+	x=set(x)
 	result=""
-	x=set(dail(calls))
 	for element in x:
 		result+=element+"\n"
 	result="The numbers called by people in Bangalore have codes:\n{}".format(result)
 	return result
 print(sort_use(calls))
-
 def percent(calls):
 	total=0
 	list1=dail(calls)

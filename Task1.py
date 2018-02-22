@@ -18,18 +18,13 @@ with open('calls.csv', 'r') as f:
 输出信息：
 "There are <count> different telephone numbers in the records."""
 def total_count(texts,calls):
-	list1=[]
-	total=0
-	for element in range(len(texts)):
-		if texts[element][0] not in list1:
-			list1.append(texts[element][0])
-		if texts[element][1] not in list1:
-			list1.append(texts[element][1])
-	for element in range(len(calls)):
-	    if calls[element][0] not in list1:
-	    	list1.append(calls[element][0])
-	    if calls[element][1] not in list1:
-	    	list1.append(calls[element][1])
-
-	return "There are <{}> different telephone numbers in the records.".format(len(list1))
+	list1=set()
+	for element in texts:
+		list1.add(element[0])
+		list1.add(element[1])
+	for element in calls:
+	    list1.add(element[0])
+	    list1.add(element[1])
+	return "There are {} different telephone numbers in the records.".format(len(list1))
 print(total_count(texts,calls))
+
