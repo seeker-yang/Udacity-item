@@ -13,36 +13,25 @@ with open('calls.csv', 'r') as f:
     calls = list(reader)
 
 def dail(calls):
-	called=[]
 	area_code=[]
+	dir_code={}
 	for element in calls:
 		if element[0].startswith("(080)"):
-			called.append(element[1])
-	for element in (called):
-		if element[1]=="0":
-			area_code.append(element[1:4])
-		elif element[5]==" ":
-			area_code.append(element[:4])
-	return area_code
-def sort_use(calls):
-	x=sorted(dail(calls))
-	x=set(x)
-	result=""
-	for element in x:
-		result+=element+"\n"
-	result="The numbers called by people in Bangalore have codes:\n{}".format(result)
-	return result
-print(sort_use(calls))
-def percent(calls):
-	total=0
-	list1=dail(calls)
-	for element in list1:
-		if element=="080":
-			total+=1
-	a=float(total*100/len(list1))
-	return round(a,2)
+			el=element[1]    #尽量不要用嵌套，如用element【0】【0】来表示第一个号码的第一位，而是一行代码写一个递进，
+			if el[0]=="(":   #虽然题目说区号以0开头，但不可用el[1]==1来做判断，因为有的长途号码第二位也是1
+			    area_code.append(el[1:el.find(')')])	    
+			elif el[0] in ["7","8","9"]:
+				area_code.append(el[:4])
+	print("The numbers called by people in Bangalore have codes:")
+	for element in area_code:
+		dir_code[element] = " "    #用字典来排序可以排除重复的区号，如果用列表虽然方便，但还要排重
+	sort_code=sorted(dir_code.items(),key=lambda item: item[0])
+	for index in range(len(sort_code)):
+		print("{}".format(sort_code[index][0]))
+	percent=area_code.count("080")/len(area_code)*100
+	return round(percent,2)	
 print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore."
-	.format(percent(calls)))
+	.format(dail(calls)))
 
 """
 任务3:
